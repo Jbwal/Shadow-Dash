@@ -18,9 +18,17 @@ public class PlayerHealth : MonoBehaviour
         UpdateBar();
     }
 
+    private bool isInvincible = false;
+
+    public void SetInvincible(bool state)
+    {
+        isInvincible = state;
+    }
+
+
     public void TakeDamage(float amount)
     {
-        if (isDead) return;
+        if (isDead || isInvincible) return;
         currentHealth -= amount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         UpdateBar();
@@ -49,5 +57,12 @@ public class PlayerHealth : MonoBehaviour
         isDead = true;
         //Debug.Log("You Died :/");
         SceneManager.LoadScene("GameOver");
+    }
+    public void UpgradeMaxHealth(float amount)
+    {
+        maxHealth += amount;
+        currentHealth += amount;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        UpdateBar();
     }
 }

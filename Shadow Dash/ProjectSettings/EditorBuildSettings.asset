@@ -12,6 +12,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Level_1.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
+    path: Assets/Scenes/Black-Smith.unity
+    guid: 468840c000e6c7c47b7a74140ccd6fc3
+  - enabled: 1
+    path: Assets/Scenes/Level_2.unity
+    guid: 3d46ec8f65b85644eb063fd1d9293bd8
+  - enabled: 1
     path: Assets/Scenes/GameOver.unity
     guid: 245a25e3991a13f488fd33a28320bfe1
   m_configObjects:
