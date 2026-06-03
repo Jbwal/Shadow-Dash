@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 44321741}
   - component: {fileID: 44321740}
   - component: {fileID: 44321739}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: deep_bridge_back_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1798,7 +1798,7 @@ GameObject:
   - component: {fileID: 936644037}
   - component: {fileID: 936644036}
   - component: {fileID: 936644038}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: collapser_long_0 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2370,7 +2370,7 @@ GameObject:
   - component: {fileID: 1336546249}
   - component: {fileID: 1336546248}
   - component: {fileID: 1336546247}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: plat_float_09_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2601,7 +2601,7 @@ GameObject:
   - component: {fileID: 1397767715}
   - component: {fileID: 1397767714}
   - component: {fileID: 1397767716}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: collapser_long_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3263,7 +3263,7 @@ GameObject:
   - component: {fileID: 1724001598}
   - component: {fileID: 1724001597}
   - component: {fileID: 1724001596}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: collapser_long_0 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
