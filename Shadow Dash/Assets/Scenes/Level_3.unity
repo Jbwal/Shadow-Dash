@@ -168,6 +168,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &82550422 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1377876486442223449, guid: 42f3cb3cd6c28a74faa2a08febc529ac, type: 3}
+  m_PrefabInstance: {fileID: 1630486674}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &143707945
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -455,6 +460,23 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0bb8356ae2ad9a9498112a131fbe83bd, type: 3}
+--- !u!95 &657696414 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 127359220135546279, guid: 42f3cb3cd6c28a74faa2a08febc529ac, type: 3}
+  m_PrefabInstance: {fileID: 1630486674}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &657696416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 82550422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9fd1a2a323eb044902830b1f9330e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AnimationBridge
 --- !u!1001 &976940483
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -825,6 +847,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 858684623655962863, guid: 42f3cb3cd6c28a74faa2a08febc529ac, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1667282802}
+    - targetCorrespondingSourceObject: {fileID: 858684623655962863, guid: 42f3cb3cd6c28a74faa2a08febc529ac, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1667282803}
+    - targetCorrespondingSourceObject: {fileID: 1377876486442223449, guid: 42f3cb3cd6c28a74faa2a08febc529ac, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 657696416}
   m_SourcePrefab: {fileID: 100100000, guid: 42f3cb3cd6c28a74faa2a08febc529ac, type: 3}
 --- !u!1 &1667282796 stripped
 GameObject:
@@ -890,6 +918,31 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1667282803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1667282796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fdb3f11b5a3d774ab357724d311a54f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossAI
+  player: {fileID: 1695019363}
+  anim: {fileID: 657696414}
+  runDistance: 10
+  attackDistance: 7.2
+  walkSpeed: 2
+  runSpeed: 5
+  damage: 15
+  attackCooldown: 1.5
+--- !u!4 &1695019363 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2934472455115560251, guid: 916c375ee68c3714b8291edd63476760, type: 3}
+  m_PrefabInstance: {fileID: 1867945583}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1763393473
 PrefabInstance:
   m_ObjectHideFlags: 0
