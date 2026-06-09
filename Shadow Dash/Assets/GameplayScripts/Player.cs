@@ -4,19 +4,21 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
     private Rigidbody2D body;
+    private SpriteRenderer spriteRenderer;
+
     [SerializeField] private float speed = 5f;
     [SerializeField] private float jumpForce = 10f;
     [SerializeField] private LayerMask groundLayer;
+
+    [Header("Ground Check")]
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private float groundDistance = 0.2f;
 
     [Header("Dash")]
     [SerializeField] private float dashForce = 20f;
     [SerializeField] private float dashDuration = 0.2f;
     [SerializeField] private float dashCooldown = 1f;
     [SerializeField] private float verticalDashMultiplier = 0.5f;
-
-    [Header("Double Jump")]
-    private bool hasDoubleJump = false;
-    private bool canDoubleJump = false;
 
     private bool isDashing = false;
     private bool canDash = true;
@@ -25,9 +27,14 @@ public class Player : MonoBehaviour
     private Vector2 dashDirection = Vector2.right;
     private bool hasDashedInAir = false;
 
-    private PlayerHealth playerHealth;
+    private bool hasDoubleJump = false;
+    private bool canDoubleJump = false;
 
     private bool isFrozen = false;
+
+    private PlayerHealth playerHealth;
+    private Animator animator;
+
     private void Start()
     {
         if (PlayerPrefs.HasKey("DoubleJump"))
@@ -48,6 +55,13 @@ public class Player : MonoBehaviour
     {
         body = GetComponent<Rigidbody2D>();
         playerHealth = GetComponent<PlayerHealth>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+
+        animator = GetComponent<Animator>();
+        if (animator == null)
+            animator = GetComponentInChildren<Animator>();
+
+        body.freezeRotation = true;
     }
 
     private void FixedUpdate()
@@ -55,18 +69,48 @@ public class Player : MonoBehaviour
         if (isDashing || isFrozen) return;
 
         float horizontal = 0f;
+
         if (Keyboard.current.leftArrowKey.isPressed || Keyboard.current.aKey.isPressed)
             horizontal = -1f;
         else if (Keyboard.current.rightArrowKey.isPressed || Keyboard.current.dKey.isPressed)
             horizontal = 1f;
 
         body.linearVelocity = new Vector2(horizontal * speed, body.linearVelocity.y);
+        if (horizontal != 0)
+        {
+            spriteRenderer.flipX = horizontal < 0;
+        }
     }
 
     private void Update()
     {
         if (isFrozen) return;
 
+        HandleDashTimers();
+
+        HandleMovementInput();
+
+        HandleJump();
+
+        HandleDash();
+
+        UpdateAnimator();
+    }
+
+    // ---------------- GROUND ----------------
+    private bool IsGrounded()
+    {
+        return Physics2D.Raycast(
+            groundCheck.position,
+            Vector2.down,
+            groundDistance,
+            groundLayer
+        );
+    }
+
+    // ---------------- INPUT ----------------
+    private void HandleMovementInput()
+    {
         float horizontal = 0f;
         float vertical = 0f;
 
@@ -82,35 +126,11 @@ public class Player : MonoBehaviour
 
         if (horizontal != 0f)
             dashDirection = new Vector2(horizontal, vertical * verticalDashMultiplier).normalized;
+    }
 
-        if (!canDash)
-        {
-            cooldownTimer -= Time.deltaTime;
-            if (cooldownTimer <= 0f && IsGrounded())
-            {
-                canDash = true;
-                hasDashedInAir = false;
-            }
-        }
-
-        if (IsGrounded() && hasDashedInAir)
-        {
-            canDash = true;
-            hasDashedInAir = false;
-            cooldownTimer = 0f;
-        }
-
-        if (isDashing)
-        {
-            dashTimer -= Time.deltaTime;
-            if (dashTimer <= 0f)
-            {
-                isDashing = false;
-                body.linearVelocity = new Vector2(0f, body.linearVelocity.y);
-                playerHealth?.SetInvincible(false);
-            }
-        }
-
+    // ---------------- JUMP ----------------
+    private void HandleJump()
+    {
         if (Keyboard.current.spaceKey.wasPressedThisFrame)
         {
             if (IsGrounded())
@@ -125,35 +145,82 @@ public class Player : MonoBehaviour
                 canDoubleJump = false;
             }
         }
+    }
 
+    // ---------------- DASH ----------------
+    private void HandleDash()
+    {
         if (Keyboard.current.leftShiftKey.wasPressedThisFrame && canDash && !isDashing)
         {
             isDashing = true;
             canDash = false;
+
             dashTimer = dashDuration;
             cooldownTimer = dashCooldown;
+
             body.gravityScale = 0f;
             body.linearVelocity = dashDirection * dashForce;
+
             playerHealth?.SetInvincible(true);
 
             if (!IsGrounded())
                 hasDashedInAir = true;
         }
 
+        if (isDashing)
+        {
+            dashTimer -= Time.deltaTime;
+
+            if (dashTimer <= 0f)
+            {
+                isDashing = false;
+                body.linearVelocity = new Vector2(0f, body.linearVelocity.y);
+                playerHealth?.SetInvincible(false);
+            }
+        }
+
         if (!isDashing)
             body.gravityScale = 1f;
     }
 
-    private bool IsGrounded()
+    // ---------------- DASH COOLDOWN ----------------
+    private void HandleDashTimers()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 1.1f, groundLayer);
-        return hit.collider != null;
+        if (!canDash)
+        {
+            cooldownTimer -= Time.deltaTime;
+
+            if (cooldownTimer <= 0f && IsGrounded())
+            {
+                canDash = true;
+                hasDashedInAir = false;
+            }
+        }
+
+        if (IsGrounded() && hasDashedInAir)
+        {
+            canDash = true;
+            hasDashedInAir = false;
+            cooldownTimer = 0f;
+        }
     }
+
+    // ---------------- ANIMATOR ----------------
+    private void UpdateAnimator()
+    {
+        if (animator == null) return;
+
+        animator.SetFloat("speed", Mathf.Abs(body.linearVelocity.x));
+        animator.SetBool("grounded", IsGrounded());
+        animator.SetBool("dashing", isDashing);
+        animator.SetFloat("verticalSpeed", body.linearVelocity.y);
+    }
+
+    // ---------------- FREEZE ----------------
     public void SetFrozen(bool state)
     {
         isFrozen = state;
-        body.linearVelocity = Vector2.zero; 
-        body.gravityScale = state ? 0f : 1f; 
+        body.linearVelocity = Vector2.zero;
+        body.gravityScale = state ? 0f : 1f;
     }
-
 }
