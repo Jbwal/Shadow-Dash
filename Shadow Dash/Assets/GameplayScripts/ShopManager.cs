@@ -23,6 +23,8 @@ public class ShopManager : MonoBehaviour
         UpdateUI();
     }
 
+
+
     private void UpdateUI()
     {
         coinText.text = "Coins : " + CoinManager.Instance.GetCoins();

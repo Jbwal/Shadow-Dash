@@ -52,7 +52,7 @@ public class PlayerHealth : MonoBehaviour
         healthBarRect.sizeDelta = new Vector2(newWidth, healthBarRect.sizeDelta.y);
     }
 
-    private void Die()
+    public void Die()
     {
         isDead = true;
         //Debug.Log("You Died :/");
