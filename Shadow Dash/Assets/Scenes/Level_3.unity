@@ -875,6 +875,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d02b3b94d432a8458d1aa9dae0956c9, type: 3}
+--- !u!1 &1488335633 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2714268545097624055, guid: 916c375ee68c3714b8291edd63476760, type: 3}
+  m_PrefabInstance: {fileID: 1867945583}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1509905721 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2962983041731684407, guid: 2eb3ffe33f2df7f4a95fa4f1c2fed348, type: 3}
@@ -1036,6 +1041,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 858684623655962863, guid: 42f3cb3cd6c28a74faa2a08febc529ac, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1667282803}
+    - targetCorrespondingSourceObject: {fileID: 858684623655962863, guid: 42f3cb3cd6c28a74faa2a08febc529ac, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1667282809}
     - targetCorrespondingSourceObject: {fileID: 1377876486442223449, guid: 42f3cb3cd6c28a74faa2a08febc529ac, type: 3}
       insertIndex: -1
       addedObject: {fileID: 657696416}
@@ -1124,11 +1132,38 @@ MonoBehaviour:
   runSpeed: 5
   damage: 15
   attackCooldown: 1.5
+--- !u!114 &1667282809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1667282796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5beb81c1b0faa3b449ab30834830bb33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
+  maxHealth: 100
 --- !u!4 &1695019363 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2934472455115560251, guid: 916c375ee68c3714b8291edd63476760, type: 3}
   m_PrefabInstance: {fileID: 1867945583}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1695019370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1488335633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6189da199fd0d104eb2fcada22731692, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
+  attackRange: 2
+  damage: 20
 --- !u!1001 &1763393473
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1281,7 +1316,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2714268545097624055, guid: 916c375ee68c3714b8291edd63476760, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1695019370}
   m_SourcePrefab: {fileID: 100100000, guid: 916c375ee68c3714b8291edd63476760, type: 3}
 --- !u!1001 &1894943897
 PrefabInstance:
@@ -1582,7 +1620,7 @@ SpriteRenderer:
   m_Size: {x: 2.74, y: 0.92}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1957063686
 Transform:
